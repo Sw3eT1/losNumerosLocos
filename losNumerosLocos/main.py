@@ -3,7 +3,12 @@
 # Funkcja wykladnicza: 2^x-4
 # Zlozenie tryg. i wielo. sin(x^2)-1/2
 
+import numpy as np
+from math import sin
 from time import sleep
+
+from bisection import bisectionMethodEpsilon, bisectionMethodIterations
+from graphMaking import makeGraph
 
 mainDecision = False
 
@@ -28,6 +33,15 @@ while not mainDecision:
     else:
         mainDecision = True
 
+match val:
+    case "a":
+        f = lambda x: x** 2 - 4
+    case "b":
+        f = lambda x: np.sin(x) - 1/2
+    case "c":
+        f = lambda x: 2**x - 4
+    case "d":
+        f = lambda x: np.sin(np.pow(x,2)) - 1/2
 
 properOptions = ["a", "b"]
 
@@ -69,7 +83,12 @@ if val == "a":
         except ValueError:
             print("Invalid input! Please enter numerical values only.")
             sleep(1)
-
+    resultEpsilon = bisectionMethodEpsilon(f, lowerInterval,higherInterval,epsilon)
+    if resultEpsilon is not None:
+        print(f'Estimated value of a zero place of a given function is: {resultEpsilon}')
+        makeGraph(f, lowerInterval, higherInterval, resultEpsilon)
+    else:
+        print("No valid zero point found, skipping graph drawing.")
 elif val == "b":
     while True:
         try:
@@ -81,3 +100,9 @@ elif val == "b":
         except ValueError:
             print("Invalid input! Please enter an integer value.")
         sleep(1)
+    resultIterations = bisectionMethodIterations(f, lowerInterval, higherInterval, numberOfIterations)
+    if resultIterations is not None:
+        print(f'Estimated value of a zero place of a given function is: {resultIterations}')
+        makeGraph(f, lowerInterval, higherInterval, resultIterations)
+    else:
+        print("No valid zero point found, skipping graph drawing.")
