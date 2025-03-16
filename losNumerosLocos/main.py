@@ -7,7 +7,7 @@ from time import sleep
 
 mainDecision = False
 
-while mainDecision == False:
+while not mainDecision:
 
     print("Chose a proper function:"
           "\n a) f(x)=x^3−4x"
@@ -20,18 +20,39 @@ while mainDecision == False:
     properOptions = ["a", "b", "c", "d"]
 
     if val not in properOptions:
-        print("Invalid input!")
-        sleep(1)
+        if val == "":
+            print("You have entered an empty string!")
+        else:
+            print("Invalid input!")
+            sleep(1)
     else:
         mainDecision = True
 
 
 properOptions = ["a", "b"]
+
+intervalDecision = False
+
+while not intervalDecision:
+    try:
+        lowerInterval = float(input("Select lower value for the interval: "))
+        higherInterval = float(input("Select higher value for the interval: "))
+
+        if higherInterval <= lowerInterval:
+            print("Invalid input! Please choose a second value as the greater one.")
+            sleep(1)
+        else:
+            intervalDecision = True
+
+    except ValueError:
+        print("Invalid input! Please enter numerical values only.")
+        sleep(1)
+
 subDecision = False
 
 while subDecision == False:
     print("Chose if you want to: "
-          "\n a) achive the pecified accuracy of calculation"
+          "\n a) achieve the specified accuracy of calculation"
           "\n b) chose your numer of iterations")
     val = input("Select your option: ").lower()
     if val not in properOptions:
@@ -40,8 +61,23 @@ while subDecision == False:
     else:
         subDecision = True
 
-match val:
-    case "a":
-        epsilon = input("Enter the value of ε for (|xi−xi−1|<ε)")
-    case "b":
-        numberOfIterations = input("Enter the number of iterations: ")
+if val == "a":
+    while True:
+        try:
+            epsilon = float(input("Enter the value of ε for (|xi−xi−1|<ε): "))
+            break
+        except ValueError:
+            print("Invalid input! Please enter numerical values only.")
+            sleep(1)
+
+elif val == "b":
+    while True:
+        try:
+            numberOfIterations = int(input("Enter the number of iterations: "))
+            if numberOfIterations > 0:
+                break
+            else:
+                print("Invalid input! Please enter a positive integer.")
+        except ValueError:
+            print("Invalid input! Please enter an integer value.")
+        sleep(1)
