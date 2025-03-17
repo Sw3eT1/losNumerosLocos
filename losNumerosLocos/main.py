@@ -9,8 +9,8 @@ from time import sleep
 
 from bisection import bisectionMethodEpsilon, bisectionMethodIterations
 from graphMaking import makeGraph
-from losNumerosLocos.horner import horner
-from losNumerosLocos.newton import newtonMethodEpsilon, newtonMethodIterations
+from horner import horner
+from newton import newtonMethodEpsilon, newtonMethodIterations
 
 mainDecision = False
 
