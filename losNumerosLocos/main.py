@@ -9,13 +9,14 @@ from time import sleep
 
 from bisection import bisectionMethodEpsilon, bisectionMethodIterations
 from graphMaking import makeGraph
+from losNumerosLocos.horner import horner
 
 mainDecision = False
 
 while not mainDecision:
 
     print("Chose a proper function:"
-          "\n a) f(x)=x^3−4x"
+          "\n a) f(x)=x^2−4x"
           "\n b) f(x)=sin(x)-1/2"
           "\n c) f(x)=2^x-4"
           "\n d) f(x)=sin(x^2)-1/2")
@@ -35,7 +36,8 @@ while not mainDecision:
 
 match val:
     case "a":
-        f = lambda x: x** 2 - 4
+        coefficients = [1, 0, -4]  #x^2 + 0*x - 4
+        f = lambda x: horner(x, coefficients)
     case "b":
         f = lambda x: np.sin(x) - 1/2
     case "c":
