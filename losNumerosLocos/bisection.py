@@ -23,7 +23,7 @@ def bisectionMethodIterations(f, a, b, numOfIter=100):
         print("Error: The function does not change sign in the given range!")
         return None
 
-    for _ in range(numOfIter):
+    for val in range(numOfIter):
         c = (a + b) / 2
         if f(c) == 0:
             return c

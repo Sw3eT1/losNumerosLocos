@@ -10,6 +10,7 @@ from time import sleep
 from bisection import bisectionMethodEpsilon, bisectionMethodIterations
 from graphMaking import makeGraph
 from losNumerosLocos.horner import horner
+from losNumerosLocos.newton import newtonMethodEpsilon, newtonMethodIterations
 
 mainDecision = False
 
@@ -38,12 +39,16 @@ match val:
     case "a":
         coefficients = [1, 0, -4]  #x^2 + 0*x - 4
         f = lambda x: horner(x, coefficients)
+        dfx = lambda x: 2*x
     case "b":
         f = lambda x: np.sin(x) - 1/2
+        dfx = lambda x: np.cos(x)
     case "c":
         f = lambda x: 2**x - 4
+        dfx = lambda x: np.log(2) * 2**x
     case "d":
         f = lambda x: np.sin(np.pow(x,2)) - 1/2
+        dfx = lambda x: 2*x * np.cos(np.pow(x,2))
 
 properOptions = ["a", "b"]
 
@@ -66,6 +71,13 @@ while not intervalDecision:
 
 subDecision = False
 
+x0 = None
+while x0 is None:
+    try:
+        x0 = float(input("Enter the starting point for Newton's method: "))
+    except ValueError:
+        print("Invalid input! Please enter a numerical value.")
+
 while subDecision == False:
     print("Chose if you want to: "
           "\n a) achieve the specified accuracy of calculation"
@@ -85,26 +97,30 @@ if val == "a":
         except ValueError:
             print("Invalid input! Please enter numerical values only.")
             sleep(1)
-    resultEpsilon = bisectionMethodEpsilon(f, lowerInterval,higherInterval,epsilon)
-    if resultEpsilon is not None:
-        print(f'Estimated value of a zero place of a given function is: {resultEpsilon}')
-        makeGraph(f, lowerInterval, higherInterval, resultEpsilon)
+    resultBisectionEpsilon = bisectionMethodEpsilon(f, lowerInterval, higherInterval, epsilon)
+    resultNewtonEpsilon = newtonMethodEpsilon(f,x0,dfx,epsilon)
+    if resultBisectionEpsilon is not None:
+        print(f'Estimated value of a bisection calculated zero place of a given function is: {resultBisectionEpsilon}\n')
+        print(f'Estimated value of a Newton calculated zero place of a given function is: {resultNewtonEpsilon}')
+        makeGraph(f, lowerInterval, higherInterval, resultBisectionEpsilon,resultNewtonEpsilon)
     else:
         print("No valid zero point found, skipping graph drawing.")
 elif val == "b":
     while True:
         try:
             numberOfIterations = int(input("Enter the number of iterations: "))
-            if numberOfIterations > 0:
+            if 0 < numberOfIterations < 10000:
                 break
             else:
                 print("Invalid input! Please enter a positive integer.")
         except ValueError:
             print("Invalid input! Please enter an integer value.")
         sleep(1)
-    resultIterations = bisectionMethodIterations(f, lowerInterval, higherInterval, numberOfIterations)
-    if resultIterations is not None:
-        print(f'Estimated value of a zero place of a given function is: {resultIterations}')
-        makeGraph(f, lowerInterval, higherInterval, resultIterations)
+    resultBisectionIterations = bisectionMethodIterations(f, lowerInterval, higherInterval, numberOfIterations)
+    resultNewtonIterations = newtonMethodIterations(f, x0,dfx, numberOfIterations)
+    if resultBisectionIterations is not None:
+        print(f'Estimated value of a bisection calculated zero place of a given function is: {resultBisectionIterations}\n')
+        print(f'Estimated value of a Newton calculated zero place of a given function is: {resultNewtonIterations}')
+        makeGraph(f, lowerInterval, higherInterval,resultBisectionIterations,resultNewtonIterations)
     else:
         print("No valid zero point found, skipping graph drawing.")

@@ -1,22 +1,24 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def makeGraph(f,a,b, zeroPoint):
+def makeGraph(f,a,b, zeroPointBi,zeroPointNe):
     xValues = np.linspace(a,b, 400)
     yValues = f(xValues)
-    zeroY = f(zeroPoint)
+    zeroY1 = f(zeroPointNe)
+    zeroY2 = f(zeroPointBi)
     plt.plot(xValues, yValues, color='b')
 
-    plt.scatter(zeroPoint, zeroY, color='red', s=50, label="Miejsce zerowe")
+    plt.scatter(zeroPointNe, zeroY1, color='red', s=50, label="Miejsce zerowe Newton")
+    plt.scatter(zeroPointBi, zeroY2, color='green', s=50, label="Miejsce zerowe Bisekcja")
 
     plt.axhline(0, color='black', linewidth=0.8)  # Oś X
     plt.axvline(0, color='black', linewidth=0.8)  # Oś Y
 
-    plt.xlim(a, b)
+    plt.xlim(a-1.5, b+1.5)
 
     plt.xlabel("x")
     plt.ylabel("f(x)")
-    plt.title("Wykres funkcji f(x) z zaznaczonym miejscem zerowym")
+    plt.title("Wykres funkcji f(x) z zaznaczonymi miejscami zerowymi")
     plt.legend()
     plt.grid()
 
