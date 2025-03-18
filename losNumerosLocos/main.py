@@ -52,7 +52,7 @@ match val:
         wzor = wzory[2]
     case "d":
         f = lambda x: np.sin(np.pow(x,2)) - 1/2
-        dfx = lambda x: 2*x * np.cos(np.pow(x,2))
+        dfx = lambda x: 2*x * np.cos(x**2)
         wzor = wzory[3]
 
 properOptions = ["a", "b"]
