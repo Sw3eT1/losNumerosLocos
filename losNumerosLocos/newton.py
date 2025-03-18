@@ -3,7 +3,7 @@ def newtonMethodEpsilon(f, x0, dfx, epsilon=1e-6):
     howManyIterations = 0
     while True:
         howManyIterations += 1
-        if dfx == 0 or dfx(x) < 0.00000001:
+        if dfx(x) == 0 or abs(dfx(x)) < 1e-8:
             print("Error: Derivative is zero!")
             return None
         x_new = x - f(x) / dfx(x)
@@ -14,7 +14,7 @@ def newtonMethodEpsilon(f, x0, dfx, epsilon=1e-6):
 def newtonMethodIterations(f, x0,dfx, numOfIter=10):
     x = x0
     for _ in range(numOfIter):
-        if dfx == 0 or dfx(x) < 0.00000001:
+        if dfx(x) == 0 or abs(dfx(x)) < 1e-8:
             print("Error: Derivative is zero!")
             return None
         x = x - f(x) / dfx(x)

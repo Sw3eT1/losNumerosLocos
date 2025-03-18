@@ -14,7 +14,7 @@ def makeGraph(f,a,b, zeroPointBi,zeroPointNe, wzor):
     plt.axhline(0, color='black', linewidth=0.8)  # Oś X
     plt.axvline(0, color='black', linewidth=0.8)  # Oś Y
 
-    plt.xlim(a-1.5, b+1.5)
+    plt.xlim(a-0.5, b+0.5)
 
     plt.xlabel("x")
     plt.ylabel("f(x)")

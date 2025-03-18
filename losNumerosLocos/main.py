@@ -13,7 +13,7 @@ from newton import newtonMethodEpsilon, newtonMethodIterations
 
 mainDecision = False
 
-wzory = ["f(x)=x^2−4x", "f(x)=sin(x)-1/2", "f(x)=2^x-4", "f(x)=sin(x^2)-1/2"]
+wzory = ["f(x)=x^3-4x-4", "f(x)=sin(x)-1/2", "f(x)=2^x-4", "f(x)=sin(x^2)-1/2"]
 
 while not mainDecision:
 
@@ -129,7 +129,9 @@ elif val == "b":
     resultNewtonIterations = newtonMethodIterations(f, x0,dfx, numberOfIterations)
     if resultBisectionIterations is not None:
         print(f'Estimated value of a bisection calculated zero place of a given function is: {resultBisectionIterations}\n')
+        print(f'How bisection is close to zero: {f(resultBisectionIterations)}\n')
         print(f'Estimated value of a Newton calculated zero place of a given function is: {resultNewtonIterations}')
+        print(f'How newton is close to zero: {f(resultNewtonIterations)}\n')
         makeGraph(f, lowerInterval, higherInterval,resultBisectionIterations,resultNewtonIterations,wzor)
     else:
         print("No valid zero point found, skipping graph drawing.")
