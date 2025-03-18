@@ -4,7 +4,6 @@
 # Zlozenie tryg. i wielo. sin(x^2)-1/2
 
 import numpy as np
-from math import sin
 from time import sleep
 
 from bisection import bisectionMethodEpsilon, bisectionMethodIterations
