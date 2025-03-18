@@ -1,4 +1,4 @@
-# Funkcja wielomianowa: f(x)=x^3−4x
+# Funkcja wielomianowa: f(x)=x^3-4x-4
 # Funkcja trygonometryczna: sin(x)-1/2
 # Funkcja wykladnicza: 2^x-4
 # Zlozenie tryg. i wielo. sin(x^2)-1/2
@@ -13,10 +13,12 @@ from newton import newtonMethodEpsilon, newtonMethodIterations
 
 mainDecision = False
 
+wzory = ["f(x)=x^2−4x", "f(x)=sin(x)-1/2", "f(x)=2^x-4", "f(x)=sin(x^2)-1/2"]
+
 while not mainDecision:
 
     print("Chose a proper function:"
-          "\n a) f(x)=x^2−4x"
+          "\n a) f(x)=x^3-4x-4"
           "\n b) f(x)=sin(x)-1/2"
           "\n c) f(x)=2^x-4"
           "\n d) f(x)=sin(x^2)-1/2")
@@ -36,18 +38,22 @@ while not mainDecision:
 
 match val:
     case "a":
-        coefficients = [1, 0, -4]  #x^2 + 0*x - 4
+        coefficients = [1, 0,-4, -4]  #x^3-4x-4
         f = lambda x: horner(x, coefficients)
-        dfx = lambda x: 2*x
+        dfx = lambda x: 3*x**2-4
+        wzor = wzory[0]
     case "b":
         f = lambda x: np.sin(x) - 1/2
         dfx = lambda x: np.cos(x)
+        wzor = wzory[1]
     case "c":
         f = lambda x: 2**x - 4
         dfx = lambda x: np.log(2) * 2**x
+        wzor = wzory[2]
     case "d":
         f = lambda x: np.sin(np.pow(x,2)) - 1/2
         dfx = lambda x: 2*x * np.cos(np.pow(x,2))
+        wzor = wzory[3]
 
 properOptions = ["a", "b"]
 
@@ -96,12 +102,16 @@ if val == "a":
         except ValueError:
             print("Invalid input! Please enter numerical values only.")
             sleep(1)
-    resultBisectionEpsilon = bisectionMethodEpsilon(f, lowerInterval, higherInterval, epsilon)
-    resultNewtonEpsilon = newtonMethodEpsilon(f,x0,dfx,epsilon)
+    resultBisectionEpsilon, howManyIterationsBisection = bisectionMethodEpsilon(f, lowerInterval, higherInterval, epsilon)
+    resultNewtonEpsilon, howManyIterationsNewton = newtonMethodEpsilon(f,x0,dfx,epsilon)
     if resultBisectionEpsilon is not None:
         print(f'Estimated value of a bisection calculated zero place of a given function is: {resultBisectionEpsilon}\n')
+        print(f'Number of iterations for bisection method with epsilon : {howManyIterationsBisection}\n')
+        print(f'How bisection is close to zero: {f(resultBisectionEpsilon)}\n')
         print(f'Estimated value of a Newton calculated zero place of a given function is: {resultNewtonEpsilon}')
-        makeGraph(f, lowerInterval, higherInterval, resultBisectionEpsilon,resultNewtonEpsilon)
+        print(f'Number of iterations for Newton method with epsilon : {howManyIterationsNewton}\n')
+        print(f'How newton is close to zero: {f(resultNewtonEpsilon)}\n')
+        makeGraph(f, lowerInterval, higherInterval, resultBisectionEpsilon,resultNewtonEpsilon, wzor)
     else:
         print("No valid zero point found, skipping graph drawing.")
 elif val == "b":
@@ -120,6 +130,6 @@ elif val == "b":
     if resultBisectionIterations is not None:
         print(f'Estimated value of a bisection calculated zero place of a given function is: {resultBisectionIterations}\n')
         print(f'Estimated value of a Newton calculated zero place of a given function is: {resultNewtonIterations}')
-        makeGraph(f, lowerInterval, higherInterval,resultBisectionIterations,resultNewtonIterations)
+        makeGraph(f, lowerInterval, higherInterval,resultBisectionIterations,resultNewtonIterations,wzor)
     else:
         print("No valid zero point found, skipping graph drawing.")
