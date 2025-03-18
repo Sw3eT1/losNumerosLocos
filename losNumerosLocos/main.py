@@ -95,6 +95,7 @@ while subDecision == False:
         subDecision = True
 
 if val == "a":
+    method = "epsilon"
     while True:
         try:
             epsilon = float(input("Enter the value of ε for (|xi−xi−1|<ε): "))
@@ -111,10 +112,11 @@ if val == "a":
         print(f'Estimated value of a Newton calculated zero place of a given function is: {resultNewtonEpsilon}')
         print(f'Number of iterations for Newton method with epsilon : {howManyIterationsNewton}\n')
         print(f'How newton is close to zero: {f(resultNewtonEpsilon)}\n')
-        makeGraph(f, lowerInterval, higherInterval, resultBisectionEpsilon,resultNewtonEpsilon, wzor)
+        makeGraph(f, lowerInterval, higherInterval, resultBisectionEpsilon,resultNewtonEpsilon, wzor,method)
     else:
         print("No valid zero point found, skipping graph drawing.")
 elif val == "b":
+    method = "iteracji zadanychb"
     while True:
         try:
             numberOfIterations = int(input("Enter the number of iterations: "))
@@ -132,6 +134,6 @@ elif val == "b":
         print(f'How bisection is close to zero: {f(resultBisectionIterations)}\n')
         print(f'Estimated value of a Newton calculated zero place of a given function is: {resultNewtonIterations}')
         print(f'How newton is close to zero: {f(resultNewtonIterations)}\n')
-        makeGraph(f, lowerInterval, higherInterval,resultBisectionIterations,resultNewtonIterations,wzor)
+        makeGraph(f, lowerInterval, higherInterval,resultBisectionIterations,resultNewtonIterations,wzor,method)
     else:
         print("No valid zero point found, skipping graph drawing.")

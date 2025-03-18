@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def makeGraph(f,a,b, zeroPointBi,zeroPointNe, wzor):
+def makeGraph(f,a,b, zeroPointBi,zeroPointNe, wzor, metoda):
     xValues = np.linspace(a,b, 400)
     yValues = f(xValues)
     zeroY1 = f(zeroPointNe)
@@ -18,7 +18,7 @@ def makeGraph(f,a,b, zeroPointBi,zeroPointNe, wzor):
 
     plt.xlabel("x")
     plt.ylabel("f(x)")
-    plt.title(f'Wykres funkcji {wzor} z zaznaczonymi miejscami zerowymi')
+    plt.title(f'Wykres funkcji {wzor} z zaznaczonymi miejscami zerowymi dla warunku stopu:  {metoda}', fontsize=7, fontweight='bold')
     plt.legend()
     plt.grid()
 
